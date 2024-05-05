@@ -135,12 +135,10 @@ class _RegisterState extends State<Register> {
       );
 
       if (response['fieldErrors'] != null) {
-        print(response['fieldErrors']);
         setState(() {
           fieldErrors = response['fieldErrors'];
         });
       } else {
-        print(response);
         SystemToast.show(response['message'], response['type']);
         // ignore: use_build_context_synchronously
         Navigator.pushNamed(context, '/login');

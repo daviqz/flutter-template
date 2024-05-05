@@ -122,7 +122,7 @@ class _LoginState extends State<Login> {
 
 void _login(context, email, password) async {
   try {
-    final response = await Service.post('/auth/login', {'email': email, 'password': password, 'isMobile': 'true'});
+    final response = await Service.post('/auth/login', {'email': email, 'password': password});
     if (response['account'] != null && response['token'] != null) {
       Account account = Account.fromJson(response['account']);
       String token = response['token'];

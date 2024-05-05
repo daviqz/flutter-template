@@ -35,4 +35,13 @@ class GlobalState extends ChangeNotifier {
     loggedUser = null;
     notifyListeners();
   }
+
+  Future<void> checkTokenAndLogoutIfExpired() async {
+    String? localStorageToken = await LocalStorage.getAuthToken();
+    if (localStorageToken == null && (token != null || loggedUser != null)) {
+      token = null;
+      loggedUser = null;
+      notifyListeners();
+    }
+  }
 }

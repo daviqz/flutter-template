@@ -11,41 +11,38 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const String appTitle = 'Flutter HOME';
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(appTitle),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton(
-                onPressed: () {
-                  GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
-                  globalState.clearAuth();
-                },
-                child: const Text(
-                  'Deslogar',
-                  style: TextStyle(
-                    color: ColorsUtils.blackLessDark,
-                  ), // Define a cor do texto do botão
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(appTitle),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
+                globalState.clearAuth();
+              },
+              child: const Text(
+                'Deslogar',
+                style: TextStyle(
+                  color: ColorsUtils.blackLessDark,
+                ), // Define a cor do texto do botão
               ),
-              TextButton(
-                onPressed: () {
-                  _handleClickGetUserAccount();
-                },
-                child: const Text(
-                  'Buscar perfil (rota autenticada)',
-                  style: TextStyle(
-                    color: ColorsUtils.blackLessDark,
-                  ), // Define a cor do texto do botão
-                ),
+            ),
+            TextButton(
+              onPressed: () {
+                _handleClickGetUserAccount();
+              },
+              child: const Text(
+                'Buscar perfil (rota autenticada)',
+                style: TextStyle(
+                  color: ColorsUtils.blackLessDark,
+                ), // Define a cor do texto do botão
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -57,6 +54,7 @@ void _handleClickGetUserAccount() async {
     final response = await Service.get('/account/protected');
     print(response);
   } catch (e) {
+    print(e);
     var message = 'Erro desconhecido';
     if (e is http.ClientException) {
       message = e.message;

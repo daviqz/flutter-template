@@ -11,6 +11,7 @@ final Map<String, WidgetBuilder> systemRoutes = {
   '/login': (context) => const Login(),
   '/register': (context) => const Register(),
 };
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class Routes extends StatelessWidget {
   const Routes({super.key});
@@ -21,27 +22,26 @@ class Routes extends StatelessWidget {
       create: (context) => GlobalState(),
       child: MaterialApp(
         title: 'Meu Aplicativo',
-        home: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            useMaterial3: true,
-            // scaffoldBackgroundColor: ColorsUtils.blackLessDark,
-            textTheme: TextTheme(
-              displayLarge: const TextStyle(
-                fontSize: 72,
-                fontWeight: FontWeight.bold,
-              ),
-              titleLarge: GoogleFonts.oswald(
-                fontSize: 30,
-                fontStyle: FontStyle.italic,
-              ),
-              bodyMedium: GoogleFonts.merriweather(),
-              displaySmall: GoogleFonts.pacifico(),
+        navigatorKey: navigatorKey,
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: true,
+          // scaffoldBackgroundColor: ColorsUtils.blackLessDark,
+          textTheme: TextTheme(
+            displayLarge: const TextStyle(
+              fontSize: 72,
+              fontWeight: FontWeight.bold,
             ),
+            titleLarge: GoogleFonts.oswald(
+              fontSize: 30,
+              fontStyle: FontStyle.italic,
+            ),
+            bodyMedium: GoogleFonts.merriweather(),
+            displaySmall: GoogleFonts.pacifico(),
           ),
-          routes: systemRoutes,
-          home: const AuthenticationScreen(),
         ),
+        routes: systemRoutes,
+        home: const AuthenticationScreen(),
       ),
     );
   }
@@ -53,37 +53,44 @@ class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalState globalState = Provider.of<GlobalState>(context);
+    globalState.checkTokenAndLogoutIfExpired();
     bool isLoggedIn = globalState.loggedUser != null;
+    return isLoggedIn ? const TabController() : const Login();
+  }
+}
 
-    if (isLoggedIn) {
-      return DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          body: const TabBarView(
-            children: [
-              Home(),
-              Icon(Icons.directions_bike),
-              Icon(Icons.directions_bike),
-              Icon(Icons.directions_bike),
-              Icon(Icons.directions_bike),
-            ],
-          ),
-          bottomNavigationBar: TabBar(
-            tabs: [
-              _buildTab(Icons.home, "Home", ColorsUtils.white),
-              _buildTab(Icons.travel_explore, "Explore", ColorsUtils.white),
-              _buildTab(Icons.favorite_border, "Favorites", ColorsUtils.white),
-              _buildTab(Icons.update, "Updates", ColorsUtils.white),
-              _buildTab(Icons.settings, "Settings", ColorsUtils.white),
-            ],
-            unselectedLabelColor: ColorsUtils.grey,
-            labelColor: ColorsUtils.lightBlue,
-          ),
+class TabController extends StatelessWidget {
+  const TabController({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        body: const TabBarView(
+          children: [
+            Home(),
+            Icon(Icons.directions_bike),
+            Icon(Icons.directions_bike),
+            Icon(Icons.directions_bike),
+            Icon(Icons.directions_bike),
+          ],
         ),
-      );
-    } else {
-      return const Login();
-    }
+        bottomNavigationBar: TabBar(
+          tabs: [
+            _buildTab(Icons.home, "Home", ColorsUtils.white),
+            _buildTab(Icons.travel_explore, "Explore", ColorsUtils.white),
+            _buildTab(Icons.favorite_border, "Favorites", ColorsUtils.white),
+            _buildTab(Icons.update, "Updates", ColorsUtils.white),
+            _buildTab(Icons.settings, "Settings", ColorsUtils.white),
+          ],
+          unselectedLabelColor: ColorsUtils.grey,
+          labelColor: ColorsUtils.lightBlue,
+        ),
+      ),
+    );
   }
 }
 

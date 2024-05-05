@@ -25,6 +25,9 @@ class Service {
     if (decodedData is Map && decodedData['toast'] != null) {
       SystemToast.show(decodedData['toast']['message'], decodedData['toast']['type']);
     }
+    if (decodedData['isExpiredToken'] != null) {
+      LocalStorage.clearAuth();
+    }
     return decodedData;
   }
 
@@ -39,6 +42,9 @@ class Service {
     final decodedData = jsonDecode(data.body);
     if (decodedData is Map && decodedData['toast'] != null) {
       SystemToast.show(decodedData['toast']['message'], decodedData['toast']['type']);
+    }
+    if (decodedData['isExpiredToken'] != null) {
+      LocalStorage.clearAuth();
     }
 
     return decodedData;
