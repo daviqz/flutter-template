@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:authorspace/utils/colors_utils.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:authorspace/widgets/input_form.dart';
+import 'package:http/http.dart' as http;
+import 'package:authorspace/widgets/system_toast.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RegisterState createState() => _RegisterState();
 }
 
@@ -14,8 +17,8 @@ class _RegisterState extends State<Register> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordControllerConfirm =
-      TextEditingController();
+  final TextEditingController _passwordControllerConfirm = TextEditingController();
+  Map<String, dynamic>? fieldErrors;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,7 @@ class _RegisterState extends State<Register> {
                 icon: Icons.person,
                 keyboardType: TextInputType.text,
                 obscureText: false,
+                errorText: fieldErrors?['username'],
               ),
               const SizedBox(height: 25),
               InputForm(
@@ -58,6 +62,7 @@ class _RegisterState extends State<Register> {
                 icon: Icons.email,
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
+                errorText: fieldErrors?['email'],
               ),
               const SizedBox(height: 35),
               InputForm(
@@ -67,6 +72,7 @@ class _RegisterState extends State<Register> {
                 icon: Icons.lock,
                 keyboardType: TextInputType.text,
                 obscureText: true,
+                errorText: fieldErrors?['password'],
               ),
               const SizedBox(height: 25),
               InputForm(
@@ -76,6 +82,7 @@ class _RegisterState extends State<Register> {
                 icon: Icons.lock,
                 keyboardType: TextInputType.text,
                 obscureText: true,
+                errorText: fieldErrors?['confirmPassword'],
               ),
               const SizedBox(height: 70),
               ElevatedButton(
@@ -120,23 +127,32 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void _register(String username, String email, String password,
-      String passwordConfirm) async {
+  void _register(String username, String email, String password, String confirmPassword) async {
     try {
-      final response = await Service.post('/account/register', {
-        'username': username,
-        'email': email,
-        'password': password,
-        'passwordConfirm': passwordConfirm
-      });
-      if (response.statusCode == 200) {
-        print('Conteúdo da resposta: ${response.body}');
-        // Faça o que quiser com o conteúdo da resposta aqui
+      final response = await Service.post(
+        '/auth/register',
+        {'username': username, 'email': email, 'password': password, 'confirmPassword': confirmPassword},
+      );
+
+      if (response['fieldErrors'] != null) {
+        print(response['fieldErrors']);
+        setState(() {
+          fieldErrors = response['fieldErrors'];
+        });
       } else {
-        print('Erro na requisição: ${response.statusCode}');
+        print(response);
+        SystemToast.show(response['message'], response['type']);
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamed(context, '/login');
       }
     } catch (e) {
-      print('Erro ao fazer a requisição: $e');
+      print(e);
+      var message = 'Erro desconhecido';
+      if (e is http.ClientException) {
+        message = e.message;
+      }
+
+      SystemToast.show(message, 'error');
     }
   }
 }

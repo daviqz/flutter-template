@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
 import 'package:authorspace/utils/colors_utils.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:authorspace/widgets/input_form.dart';
 import 'package:authorspace/storage/global_state.dart';
 import 'package:authorspace/models/account_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:authorspace/widgets/system_toast.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginState createState() => _LoginState();
 }
 
@@ -121,37 +122,19 @@ class _LoginState extends State<Login> {
 
 void _login(context, email, password) async {
   try {
-    final response = await Service.post('/account/login', {
-      'email': email,
-      'password': password,
-    });
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> responseBody = jsonDecode(response.body);
-      Account account = Account.fromJson(responseBody['account']);
-      print(account);
-      String token = responseBody['access_token'];
-      GlobalState globalState =
-          Provider.of<GlobalState>(context, listen: false);
+    final response = await Service.post('/auth/login', {'email': email, 'password': password, 'isMobile': 'true'});
+    if (response['account'] != null && response['token'] != null) {
+      Account account = Account.fromJson(response['account']);
+      String token = response['token'];
+      GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
       globalState.updateAuth(token, account);
-    } else {
-      print('Erro na requisição: ${response.statusCode}');
-      Fluttertoast.showToast(
-        msg: 'Erro na requisição: ${response.statusCode}',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
     }
   } catch (e) {
-    print('Erro ao fazer a requisição: $e');
-    Fluttertoast.showToast(
-      msg: 'Erro ao fazer a requisição: $e',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-    );
+    print(e);
+    var message = 'Erro desconhecido';
+    if (e is http.ClientException) {
+      message = e.message;
+    }
+    SystemToast.show(message, 'error');
   }
 }

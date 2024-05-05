@@ -1,11 +1,9 @@
-import 'package:authorspace/models/account_model.dart';
 import 'package:authorspace/storage/global_state.dart';
 import 'package:flutter/material.dart';
 import 'package:authorspace/utils/colors_utils.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
 import 'package:authorspace/service/service.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -25,8 +23,7 @@ class Home extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  GlobalState globalState =
-                      Provider.of<GlobalState>(context, listen: false);
+                  GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
                   globalState.clearAuth();
                 },
                 child: const Text(
@@ -57,30 +54,12 @@ class Home extends StatelessWidget {
 
 void _handleClickGetUserAccount() async {
   try {
-    final response = await Service.get('/account/get-user-account');
-
-    if (response.statusCode == 200) {
-      dynamic responseBody = jsonDecode(response.body);
-      Account account = Account.fromJson(responseBody);
-      print(account);
-    } else {
-      print('Erro na requisição: ${response.statusCode}');
-      Fluttertoast.showToast(
-        msg: 'Erro na requisição: ${response.statusCode}',
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
-      );
-    }
+    final response = await Service.get('/account/protected');
+    print(response);
   } catch (e) {
-    print('Erro ao fazer a requisição: $e');
-    Fluttertoast.showToast(
-      msg: 'Erro ao fazer a requisição: $e',
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
-    );
+    var message = 'Erro desconhecido';
+    if (e is http.ClientException) {
+      message = e.message;
+    }
   }
 }

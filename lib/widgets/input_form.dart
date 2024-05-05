@@ -9,13 +9,15 @@ class InputForm extends StatelessWidget {
       required String hintText,
       required IconData icon,
       required TextInputType keyboardType,
-      required bool obscureText})
+      required bool obscureText,
+      String? errorText})
       : _inputFieldValueController = inputFieldValueController,
         _labelText = labelText,
         _hintText = hintText,
         _icon = icon,
         _keyboardType = keyboardType,
-        _obscureText = obscureText;
+        _obscureText = obscureText,
+        _errorText = errorText;
 
   final TextEditingController _inputFieldValueController;
   final String _labelText;
@@ -23,6 +25,7 @@ class InputForm extends StatelessWidget {
   final IconData _icon;
   final TextInputType _keyboardType;
   final bool _obscureText;
+  final String? _errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +34,7 @@ class InputForm extends StatelessWidget {
         decoration: InputDecoration(
           labelText: _labelText,
           hintText: _hintText,
+          errorText: _errorText,
           prefixIcon: Icon(
             _icon,
             color: ColorsUtils.whiteDarker,
