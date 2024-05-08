@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:authorspace/utils/colors_utils.dart';
 
 class InputForm extends StatelessWidget {
   const InputForm(
@@ -37,7 +36,6 @@ class InputForm extends StatelessWidget {
           errorText: _errorText,
           prefixIcon: Icon(
             _icon,
-            color: ColorsUtils.whiteDarker,
           ),
           border: const OutlineInputBorder(),
         ),

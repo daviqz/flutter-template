@@ -6,6 +6,7 @@ import 'package:authorspace/storage/local_storage.dart';
 class GlobalState extends ChangeNotifier {
   String? token;
   Account? loggedUser;
+  String themeName = 'default';
 
   GlobalState() {
     initFromLocalStorage();
@@ -13,6 +14,7 @@ class GlobalState extends ChangeNotifier {
 
   void initFromLocalStorage() async {
     final authData = await LocalStorage.getAuth();
+    final themeName = await LocalStorage.getThemeName();
     if (authData != null) {
       final auth = json.decode(authData);
       final token = auth['token'];
@@ -20,8 +22,12 @@ class GlobalState extends ChangeNotifier {
       final loggedUser = Account.fromJson(userData);
       updateAuth(token, loggedUser);
     }
+    if (themeName != null) {
+      updateTheme(themeName);
+    }
   }
 
+  //------------------------------------ Auth
   void updateAuth(String newToken, Account newUser) async {
     await LocalStorage.setAuth(newToken, newUser);
     token = newToken;
@@ -43,5 +49,12 @@ class GlobalState extends ChangeNotifier {
       loggedUser = null;
       notifyListeners();
     }
+  }
+
+  //------------------------------------ Theme
+  void updateTheme(String newThemeName) async {
+    await LocalStorage.setThemeName(newThemeName);
+    themeName = newThemeName;
+    notifyListeners();
   }
 }

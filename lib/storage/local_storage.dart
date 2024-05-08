@@ -6,12 +6,15 @@ import 'package:authorspace/models/account_model.dart';
 
 class LocalStorage {
   static const String _authKey = 'AUTH_KEY';
+  static const String _themeKey = 'THEME_KEY';
+
   static late SharedPreferences _prefs;
 
   static Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
+  //------------------------------------ Auth
   static Future<void> setAuth(String token, Account loggedUser) async {
     final data = {'token': token, 'loggedUser': loggedUser.toJson()};
     final jsonData = json.encode(data); // Serialize o mapa para uma string JSON
@@ -35,5 +38,14 @@ class LocalStorage {
   static Future<void> clearAuth() async {
     await _prefs.remove(_authKey);
     navigatorKey.currentState!.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  }
+
+  //------------------------------------ Theme
+  static Future<void> setThemeName(String themeName) async {
+    await _prefs.setString(_themeKey, themeName);
+  }
+
+  static Future<String?> getThemeName() async {
+    return _prefs.getString(_themeKey);
   }
 }

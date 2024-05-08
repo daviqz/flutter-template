@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:authorspace/utils/colors_utils.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:authorspace/widgets/input_form.dart';
 import 'package:authorspace/storage/global_state.dart';
@@ -26,19 +25,16 @@ class _LoginState extends State<Login> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-          color: ColorsUtils.lightBlue, // Cor de fundo da AppBar
           alignment: Alignment.center,
           child: const Text(
             'Login',
             style: TextStyle(
-              color: ColorsUtils.whitePrimary, // Cor do texto
               fontSize: 20, // Tamanho do texto
               fontWeight: FontWeight.bold, // Peso da fonte
             ),
           ),
         ),
       ),
-      backgroundColor: ColorsUtils.whitePrimary,
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Center(
@@ -63,36 +59,19 @@ class _LoginState extends State<Login> {
                 keyboardType: TextInputType.text,
                 obscureText: true,
               ),
-              const SizedBox(height: 50),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/register');
-                },
-                child: const Text(
-                  'Login com Google',
-                  style: TextStyle(
-                    color: ColorsUtils.blackLessDark,
-                  ), // Define a cor do texto do botão
-                ),
-              ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
                 child: const Text(
                   'Registre-se',
-                  style: TextStyle(
-                    color: ColorsUtils.blackLessDark,
-                  ), // Define a cor do texto do botão
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: ColorsUtils.whiteSecondary, // text color
-                    backgroundColor: ColorsUtils.blue,
                     minimumSize: const Size(200, 50),
                     padding: const EdgeInsets.symmetric(
                       vertical: 20.0,

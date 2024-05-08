@@ -1,6 +1,5 @@
 import 'package:authorspace/storage/global_state.dart';
 import 'package:flutter/material.dart';
-import 'package:authorspace/utils/colors_utils.dart';
 import 'package:provider/provider.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:http/http.dart' as http;
@@ -26,9 +25,6 @@ class Home extends StatelessWidget {
               },
               child: const Text(
                 'Deslogar',
-                style: TextStyle(
-                  color: ColorsUtils.blackLessDark,
-                ), // Define a cor do texto do botão
               ),
             ),
             TextButton(
@@ -37,9 +33,6 @@ class Home extends StatelessWidget {
               },
               child: const Text(
                 'Buscar perfil (rota autenticada)',
-                style: TextStyle(
-                  color: ColorsUtils.blackLessDark,
-                ), // Define a cor do texto do botão
               ),
             ),
           ],
@@ -59,5 +52,6 @@ void _handleClickGetUserAccount() async {
     if (e is http.ClientException) {
       message = e.message;
     }
+    print(message);
   }
 }

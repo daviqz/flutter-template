@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:authorspace/utils/colors_utils.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:authorspace/widgets/input_form.dart';
 import 'package:http/http.dart' as http;
@@ -26,19 +25,16 @@ class _RegisterState extends State<Register> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
-          color: ColorsUtils.lightBlue, // Cor de fundo da AppBar
           alignment: Alignment.center,
           child: const Text(
-            'Registrar sua conta',
+            'Registre a sua conta',
             style: TextStyle(
-              color: ColorsUtils.whitePrimary, // Cor do texto
               fontSize: 20, // Tamanho do texto
               fontWeight: FontWeight.bold, // Peso da fonte
             ),
           ),
         ),
       ),
-      backgroundColor: ColorsUtils.whitePrimary,
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: Center(
@@ -87,8 +83,6 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 70),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: ColorsUtils.whiteSecondary, // text color
-                  backgroundColor: ColorsUtils.blue,
                   minimumSize: const Size(200, 50),
                   padding: const EdgeInsets.symmetric(
                     vertical: 20.0,
@@ -115,9 +109,6 @@ class _RegisterState extends State<Register> {
                 },
                 child: const Text(
                   'Já é um usuário? Faça login',
-                  style: TextStyle(
-                    color: ColorsUtils.blackLessDark,
-                  ), // Define a cor do texto do botão
                 ),
               )
             ],
