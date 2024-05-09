@@ -1,3 +1,5 @@
+import 'package:authorspace/config/location-texts.config.dart';
+import 'package:authorspace/enums/toast.enum.dart';
 import 'package:flutter/material.dart';
 import 'package:authorspace/service/service.dart';
 import 'package:authorspace/widgets/input_form.dart';
@@ -16,21 +18,23 @@ class _RegisterState extends State<Register> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordControllerConfirm = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   Map<String, dynamic>? fieldErrors;
 
   @override
   Widget build(BuildContext context) {
+    final localizedTexts = LocalizedTexts(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
           alignment: Alignment.center,
-          child: const Text(
-            'Registre a sua conta',
-            style: TextStyle(
-              fontSize: 20, // Tamanho do texto
-              fontWeight: FontWeight.bold, // Peso da fonte
+          child: Text(
+            localizedTexts.registerYourAccount,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),
@@ -43,8 +47,8 @@ class _RegisterState extends State<Register> {
             children: <Widget>[
               InputForm(
                 inputFieldValueController: _usernameController,
-                labelText: 'Nome de usuário',
-                hintText: 'Digite o seu nome de usuário',
+                labelText: localizedTexts.username,
+                hintText: localizedTexts.enterYourUsername,
                 icon: Icons.person,
                 keyboardType: TextInputType.text,
                 obscureText: false,
@@ -53,8 +57,8 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 25),
               InputForm(
                 inputFieldValueController: _emailController,
-                labelText: 'Email',
-                hintText: 'Digite seu email',
+                labelText: localizedTexts.email,
+                hintText: localizedTexts.enterYourEmail,
                 icon: Icons.email,
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
@@ -63,8 +67,8 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 35),
               InputForm(
                 inputFieldValueController: _passwordController,
-                labelText: 'Senha',
-                hintText: 'Digite sua senha',
+                labelText: localizedTexts.password,
+                hintText: localizedTexts.enterYourPassword,
                 icon: Icons.lock,
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -72,9 +76,9 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 25),
               InputForm(
-                inputFieldValueController: _passwordControllerConfirm,
-                labelText: 'Confirmação de senha',
-                hintText: 'Confirme a senha',
+                inputFieldValueController: _confirmPasswordController,
+                labelText: localizedTexts.passwordConfirmation,
+                hintText: localizedTexts.confirmPassword,
                 icon: Icons.lock,
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -91,25 +95,16 @@ class _RegisterState extends State<Register> {
                 ),
                 onPressed: () {
                   _register(
-                    _usernameController.text,
-                    _emailController.text,
-                    _passwordController.text,
-                    _passwordControllerConfirm.text,
-                  );
+                      _usernameController.text, _emailController.text, _passwordController.text, _confirmPasswordController.text, localizedTexts);
                 },
-                child: const Text(
-                  'Registrar',
-                  style: TextStyle(fontSize: 17),
-                ),
+                child: Text(localizedTexts.register, style: const TextStyle(fontSize: 17)),
               ),
               const SizedBox(height: 50),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushReplacementNamed(context, '/login');
                 },
-                child: const Text(
-                  'Já é um usuário? Faça login',
-                ),
+                child: Text(localizedTexts.alreadyAUserLogin),
               )
             ],
           ),
@@ -118,7 +113,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  void _register(String username, String email, String password, String confirmPassword) async {
+  void _register(String username, String email, String password, String confirmPassword, LocalizedTexts localizedTexts) async {
     try {
       final response = await Service.post(
         '/auth/register',
@@ -130,18 +125,17 @@ class _RegisterState extends State<Register> {
           fieldErrors = response['fieldErrors'];
         });
       } else {
-        SystemToast.show(response['message'], response['type']);
+        SystemToast.show(response['message'], toastEnumFromString(response['type']));
         // ignore: use_build_context_synchronously
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushReplacementNamed(context, '/login');
       }
     } catch (e) {
       print(e);
-      var message = 'Erro desconhecido';
+      var message = localizedTexts.unknownError;
       if (e is http.ClientException) {
         message = e.message;
       }
-
-      SystemToast.show(message, 'error');
+      SystemToast.show(message, ToastEnum.error);
     }
   }
 }

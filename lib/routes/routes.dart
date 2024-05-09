@@ -1,14 +1,19 @@
 import 'package:authorspace/routes/routes_config.dart';
+import 'package:authorspace/routes/tab_controller_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:authorspace/screens/login/login.dart';
 import 'package:authorspace/screens/register/register.dart';
 import 'package:authorspace/storage/global_state.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-final Map<String, WidgetBuilder> systemRoutes = {
-  '/login': (context) => const Login(),
-  '/register': (context) => const Register(),
-};
+final List<Map<String, dynamic>> systemRoutes = [
+  {'path': '/login', 'screen': (context) => const Login(), 'isPrivate': false, 'canAccessAfterLogin': false},
+  {'path': '/register', 'screen': (context) => const Register(), 'isPrivate': false, 'canAccessAfterLogin': false},
+  {'path': '/home', 'screen': (context) => const TabControllerRoutes(), 'isPrivate': true, 'canAccessAfterLogin': true},
+];
+
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class Routes extends StatelessWidget {
@@ -35,26 +40,24 @@ class _AppThemeState extends State<AppTheme> {
   @override
   Widget build(BuildContext context) {
     GlobalState globalState = Provider.of<GlobalState>(context, listen: true);
-
     return MaterialApp(
       title: 'Meu Aplicativo',
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
+      locale: const Locale('en'),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+        Locale('pt'), // Portuguese
+      ],
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: const Color.fromARGB(167, 214, 214, 214),
-        // textTheme: TextTheme(
-        //   displayLarge: const TextStyle(
-        //     fontSize: 72,
-        //     fontWeight: FontWeight.bold,
-        //   ),
-        //   titleLarge: GoogleFonts.oswald(
-        //     fontSize: 30,
-        //     fontStyle: FontStyle.italic,
-        //   ),
-        //   bodyMedium: GoogleFonts.merriweather(),
-        //   displaySmall: GoogleFonts.pacifico(),
-        // ),
       ),
       darkTheme: ThemeData(
         colorSchemeSeed: const Color.fromRGBO(86, 80, 14, 171),
@@ -62,8 +65,21 @@ class _AppThemeState extends State<AppTheme> {
         useMaterial3: true,
       ),
       themeMode: _getTheme(globalState.themeName),
-      routes: systemRoutes,
       home: const AuthenticationScreen(),
+      onGenerateRoute: (settings) {
+        final userToken = globalState.token;
+        final route = systemRoutes.firstWhere(
+          (route) => route['path'] == settings.name,
+          orElse: () => {'path': '/login', 'screen': (context) => const Login(), 'isPrivate': false, 'canAccessAfterLogin': false},
+        );
+        if ((route['isPrivate'] && userToken == null)) {
+          return MaterialPageRoute(builder: (context) => const Login());
+        }
+        if (!route['canAccessAfterLogin'] && userToken != null) {
+          return MaterialPageRoute(builder: (context) => const TabControllerRoutes());
+        }
+        return MaterialPageRoute(builder: (BuildContext context) => route['screen'](context));
+      },
     );
   }
 }

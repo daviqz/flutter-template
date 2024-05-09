@@ -1,0 +1,22 @@
+{
+	"password": "Password",
+	"register": "Register",
+	"enter":"Enter",
+	"login":"Login",
+	"registerYourAccount":"Register your account",
+	"username":"Username",
+	"email":"Email",
+	"enterYourUsername":"Enter your username",
+	"enterYourEmail":"Enter your email",
+	"confirmPassword":"Confirm password",
+	"passwordConfirmation":"Password confirmation",
+	"enterYourPassword":"Enter your password",
+	"alreadyAUserLogin":"Already a user? Login",
+	"logout":"Logout",
+	"explore":"Explore",
+	"favorites":"Favoritos",
+	"updates":"Updates",
+	"settings":"Settings",
+	"xxxxxErrorsxxxxx":"",
+	"unknownError":"Unknown error"
+}

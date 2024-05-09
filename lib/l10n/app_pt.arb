@@ -1,0 +1,22 @@
+{
+    "password":"Senha",
+    "register":"Registrar",
+    "enter":"Entrar",
+    "login":"Login",
+    "registerYourAccount":"Registre sua conta",
+    "username":"Nome de usuário",
+    "email":"Email",
+    "enterYourUsername":"Digite o seu nome de usuário",
+    "enterYourEmail":"Digite o seu email",
+    "confirmPassword":"Confirme a senha",
+    "passwordConfirmation":"Confirmação de senha",
+    "enterYourPassword":"Digite a sua senha",
+    "alreadyAUserLogin":"Já é um usuário? Entrar",
+    "logout":"Deslogar",
+    "explore":"Explorar",
+    "favorites":"Favoritos",
+    "updates":"Atualizações",
+    "settings":"Configurações",
+    "xxxxxErrorsxxxxx":"",
+    "unknownError":"Erro desconhecido"
+}

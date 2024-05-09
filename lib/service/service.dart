@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:authorspace/enums/toast.enum.dart';
 import 'package:authorspace/storage/global_state.dart';
 import 'package:http/http.dart' as http;
 import 'package:authorspace/widgets/system_toast.dart';
@@ -23,7 +24,7 @@ class Service {
     final data = await http.get(url, headers: mergedHeaders);
     final decodedData = jsonDecode(data.body);
     if (decodedData is Map && decodedData['toast'] != null) {
-      SystemToast.show(decodedData['toast']['message'], decodedData['toast']['type']);
+      SystemToast.show(decodedData['toast']['message'], toastEnumFromString(decodedData['toast']['type']));
     }
     if (decodedData['isExpiredToken'] != null) {
       LocalStorage.clearAuth();
@@ -41,7 +42,7 @@ class Service {
     final data = await http.post(url, body: body, headers: mergedHeaders);
     final decodedData = jsonDecode(data.body);
     if (decodedData is Map && decodedData['toast'] != null) {
-      SystemToast.show(decodedData['toast']['message'], decodedData['toast']['type']);
+      SystemToast.show(decodedData['toast']['message'], toastEnumFromString(decodedData['toast']['type']));
     }
     if (decodedData['isExpiredToken'] != null) {
       LocalStorage.clearAuth();

@@ -1,3 +1,4 @@
+import 'package:authorspace/config/location-texts.config.dart';
 import 'package:authorspace/storage/global_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +10,8 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizedTexts = LocalizedTexts(context);
+
     const String appTitle = 'Flutter HOME';
     return Scaffold(
       appBar: AppBar(
@@ -23,13 +26,11 @@ class Home extends StatelessWidget {
                 GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
                 globalState.clearAuth();
               },
-              child: const Text(
-                'Deslogar',
-              ),
+              child: Text(localizedTexts.logout),
             ),
             TextButton(
               onPressed: () {
-                _handleClickGetUserAccount();
+                _handleClickGetUserAccount(localizedTexts);
               },
               child: const Text(
                 'Buscar perfil (rota autenticada)',
@@ -42,13 +43,13 @@ class Home extends StatelessWidget {
   }
 }
 
-void _handleClickGetUserAccount() async {
+void _handleClickGetUserAccount(localizedTexts) async {
   try {
     final response = await Service.get('/account/protected');
     print(response);
   } catch (e) {
     print(e);
-    var message = 'Erro desconhecido';
+    var message = localizedTexts.unknownError;
     if (e is http.ClientException) {
       message = e.message;
     }

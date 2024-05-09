@@ -1,18 +1,23 @@
+import 'package:authorspace/enums/toast.enum.dart';
+import 'package:authorspace/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SystemToast {
-  static void show(String message, String type) {
-    Color backgroundColor = Colors.black; // Initialized with a default value
+  static void show(String message, ToastEnum type) {
+    Color backgroundColor = ColorsUtils.black; // Initialized with a default value
     switch (type) {
-      case 'error':
-        backgroundColor = Colors.red;
+      case ToastEnum.error:
+        backgroundColor = ColorsUtils.red;
         break;
-      case 'success':
-        backgroundColor = Colors.green;
+      case ToastEnum.success:
+        backgroundColor = ColorsUtils.green;
         break;
-      case 'info':
-        backgroundColor = Colors.blue;
+      case ToastEnum.info:
+        backgroundColor = ColorsUtils.blue;
+        break;
+      case ToastEnum.warning:
+        backgroundColor = ColorsUtils.yellow;
         break;
     }
 
@@ -21,7 +26,7 @@ class SystemToast {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       backgroundColor: backgroundColor,
-      textColor: Colors.white,
+      textColor: ColorsUtils.white,
     );
   }
 }

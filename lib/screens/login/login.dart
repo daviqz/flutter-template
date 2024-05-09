@@ -1,3 +1,5 @@
+import 'package:authorspace/config/location-texts.config.dart';
+import 'package:authorspace/enums/toast.enum.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:authorspace/service/service.dart';
@@ -21,18 +23,14 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final localizedTexts = LocalizedTexts(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Container(
           alignment: Alignment.center,
-          child: const Text(
-            'Login',
-            style: TextStyle(
-              fontSize: 20, // Tamanho do texto
-              fontWeight: FontWeight.bold, // Peso da fonte
-            ),
-          ),
+          child: Text(localizedTexts.login, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         ),
       ),
       body: Padding(
@@ -44,8 +42,8 @@ class _LoginState extends State<Login> {
             children: <Widget>[
               InputForm(
                 inputFieldValueController: _emailController,
-                labelText: 'Email',
-                hintText: 'Digite seu email',
+                labelText: localizedTexts.email,
+                hintText: localizedTexts.enterYourEmail,
                 icon: Icons.email,
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
@@ -53,8 +51,8 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 30),
               InputForm(
                 inputFieldValueController: _passwordController,
-                labelText: 'Senha',
-                hintText: 'Digite sua senha',
+                labelText: localizedTexts.password,
+                hintText: localizedTexts.enterYourPassword,
                 icon: Icons.lock,
                 keyboardType: TextInputType.text,
                 obscureText: true,
@@ -62,33 +60,21 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 30),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register');
+                  Navigator.pushReplacementNamed(context, '/register');
                 },
-                child: const Text(
-                  'Registre-se',
-                ),
+                child: Text(localizedTexts.register),
               ),
               const SizedBox(height: 50),
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(200, 50),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 20.0,
-                      horizontal: 40.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
                   ),
                   onPressed: () {
-                    _login(
-                      context,
-                      _emailController.text,
-                      _passwordController.text,
-                    );
+                    _login(context, _emailController.text, _passwordController.text, localizedTexts);
                   },
-                  child: const Text(
-                    'Entrar',
-                    style: TextStyle(fontSize: 17),
-                  ),
+                  child: Text(localizedTexts.enter, style: const TextStyle(fontSize: 17)),
                 ),
               ),
             ],
@@ -99,21 +85,22 @@ class _LoginState extends State<Login> {
   }
 }
 
-void _login(context, email, password) async {
+void _login(BuildContext context, String email, String password, LocalizedTexts localizedTexts) async {
   try {
     final response = await Service.post('/auth/login', {'email': email, 'password': password});
     if (response['account'] != null && response['token'] != null) {
       Account account = Account.fromJson(response['account']);
       String token = response['token'];
+      // ignore: use_build_context_synchronously
       GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
       globalState.updateAuth(token, account);
     }
   } catch (e) {
     print(e);
-    var message = 'Erro desconhecido';
+    var message = localizedTexts.unknownError;
     if (e is http.ClientException) {
       message = e.message;
     }
-    SystemToast.show(message, 'error');
+    SystemToast.show(message, ToastEnum.error);
   }
 }
