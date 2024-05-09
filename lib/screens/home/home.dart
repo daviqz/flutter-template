@@ -1,8 +1,8 @@
-import 'package:authorspace/config/location-texts.config.dart';
-import 'package:authorspace/storage/global_state.dart';
+import 'package:mobiletemplate/config/location-texts.config.dart';
+import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:authorspace/service/service.dart';
+import 'package:mobiletemplate/service/service.dart';
 import 'package:http/http.dart' as http;
 
 class Home extends StatelessWidget {

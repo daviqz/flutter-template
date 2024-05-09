@@ -1,8 +1,8 @@
-import 'package:authorspace/routes/tab_controller_routes.dart';
+import 'package:mobiletemplate/routes/tab_controller_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:authorspace/screens/login/login.dart';
-import 'package:authorspace/storage/global_state.dart';
+import 'package:mobiletemplate/screens/login/login.dart';
+import 'package:mobiletemplate/storage/global_state.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   const AuthenticationScreen({super.key});

@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:authorspace/enums/toast.enum.dart';
-import 'package:authorspace/storage/global_state.dart';
+import 'package:mobiletemplate/enums/toast.enum.dart';
+import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:http/http.dart' as http;
-import 'package:authorspace/widgets/system_toast.dart';
-import 'package:authorspace/storage/local_storage.dart';
-import 'package:authorspace/config/config.dart';
+import 'package:mobiletemplate/widgets/system_toast.dart';
+import 'package:mobiletemplate/storage/local_storage.dart';
+import 'package:mobiletemplate/config/config.dart';
 
 const String apiBaseUrl = apiBaseUrlLocal;
 

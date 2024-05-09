@@ -1,10 +1,10 @@
-import 'package:authorspace/config/location-texts.config.dart';
-import 'package:authorspace/enums/toast.enum.dart';
+import 'package:mobiletemplate/config/location-texts.config.dart';
+import 'package:mobiletemplate/enums/toast.enum.dart';
 import 'package:flutter/material.dart';
-import 'package:authorspace/service/service.dart';
-import 'package:authorspace/widgets/input_form.dart';
+import 'package:mobiletemplate/service/service.dart';
+import 'package:mobiletemplate/widgets/input_form.dart';
 import 'package:http/http.dart' as http;
-import 'package:authorspace/widgets/system_toast.dart';
+import 'package:mobiletemplate/widgets/system_toast.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});

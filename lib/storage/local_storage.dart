@@ -1,8 +1,8 @@
-import 'package:authorspace/routes/routes.dart';
+import 'package:mobiletemplate/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:authorspace/models/account_model.dart';
+import 'package:mobiletemplate/models/account_model.dart';
 
 class LocalStorage {
   static const String _authKey = 'AUTH_KEY';

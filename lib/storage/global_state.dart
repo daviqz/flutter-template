@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:authorspace/models/account_model.dart';
-import 'package:authorspace/storage/local_storage.dart';
+import 'package:mobiletemplate/models/account_model.dart';
+import 'package:mobiletemplate/storage/local_storage.dart';
 
 class GlobalState extends ChangeNotifier {
   String? token;

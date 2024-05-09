@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "authorspace" "\0"
+            VALUE "FileDescription", "mobiletemplate" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "authorspace" "\0"
+            VALUE "InternalName", "mobiletemplate" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "authorspace.exe" "\0"
-            VALUE "ProductName", "authorspace" "\0"
+            VALUE "OriginalFilename", "mobiletemplate.exe" "\0"
+            VALUE "ProductName", "mobiletemplate" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

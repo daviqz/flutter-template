@@ -1,10 +1,10 @@
-import 'package:authorspace/routes/routes_config.dart';
-import 'package:authorspace/routes/tab_controller_routes.dart';
+import 'package:mobiletemplate/routes/routes_config.dart';
+import 'package:mobiletemplate/routes/tab_controller_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:authorspace/screens/login/login.dart';
-import 'package:authorspace/screens/register/register.dart';
-import 'package:authorspace/storage/global_state.dart';
+import 'package:mobiletemplate/screens/login/login.dart';
+import 'package:mobiletemplate/screens/register/register.dart';
+import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 

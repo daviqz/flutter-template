@@ -1,4 +1,4 @@
-import 'package:authorspace/storage/global_state.dart';
+import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,6 +1,6 @@
-import 'package:authorspace/screens/home/home.dart';
-import 'package:authorspace/screens/settings/settings.dart';
-import 'package:authorspace/utils/colors_utils.dart';
+import 'package:mobiletemplate/screens/home/home.dart';
+import 'package:mobiletemplate/screens/settings/settings.dart';
+import 'package:mobiletemplate/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 
 class TabControllerRoutes extends StatelessWidget {

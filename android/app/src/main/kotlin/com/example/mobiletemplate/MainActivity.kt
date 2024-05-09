@@ -1,4 +1,4 @@
-package com.example.authorspace
+package com.example.mobiletemplate
 
 import io.flutter.embedding.android.FlutterActivity
 

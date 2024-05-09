@@ -1,5 +1,5 @@
-import 'package:authorspace/enums/toast.enum.dart';
-import 'package:authorspace/utils/colors_utils.dart';
+import 'package:mobiletemplate/enums/toast.enum.dart';
+import 'package:mobiletemplate/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

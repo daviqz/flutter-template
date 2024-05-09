@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:authorspace/routes/routes.dart';
-import 'package:authorspace/storage/local_storage.dart';
+import 'package:mobiletemplate/routes/routes.dart';
+import 'package:mobiletemplate/storage/local_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
