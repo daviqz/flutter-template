@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:mobiletemplate/enums/toast.enum.dart';
-import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:mobiletemplate/widgets/system_toast.dart';
 import 'package:mobiletemplate/storage/local_storage.dart';
 import 'package:mobiletemplate/config/config.dart';
@@ -10,9 +10,6 @@ const String apiBaseUrl = apiBaseUrlLocal;
 
 class Service {
   static const String baseUrl = apiBaseUrl;
-  final GlobalState globalState;
-
-  Service({required this.globalState});
 
   static Future<dynamic> get(String route, {Map<String, String>? headers}) async {
     final url = Uri.parse('$baseUrl$route');
@@ -27,7 +24,8 @@ class Service {
       SystemToast.show(decodedData['toast']['message'], toastEnumFromString(decodedData['toast']['type']));
     }
     if (decodedData['isExpiredToken'] != null) {
-      LocalStorage.clearAuth();
+      GlobalState globalState = GlobalState();
+      globalState.clearAuth();
     }
     return decodedData;
   }
@@ -44,8 +42,9 @@ class Service {
     if (decodedData is Map && decodedData['toast'] != null) {
       SystemToast.show(decodedData['toast']['message'], toastEnumFromString(decodedData['toast']['type']));
     }
-    if (decodedData['isExpiredToken'] != null) {
-      LocalStorage.clearAuth();
+    if (decodedData['isExpiredToken'] != null || decodedData['statusCode'] == 401) {
+      GlobalState globalState = GlobalState();
+      globalState.clearAuth();
     }
 
     return decodedData;

@@ -1,7 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:mobiletemplate/config/location-texts.config.dart';
 import 'package:mobiletemplate/enums/toast.enum.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:mobiletemplate/service/service.dart';
 import 'package:mobiletemplate/widgets/input_form.dart';
 import 'package:mobiletemplate/storage/global_state.dart';
@@ -9,6 +9,7 @@ import 'package:mobiletemplate/models/account_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobiletemplate/widgets/system_toast.dart';
 
+@RoutePage()
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -60,7 +61,7 @@ class _LoginState extends State<Login> {
               const SizedBox(height: 30),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/register');
+                  AutoRouter.of(context).pushNamed('/register');
                 },
                 child: Text(localizedTexts.register),
               ),
@@ -72,7 +73,7 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
                   ),
                   onPressed: () {
-                    _login(context, _emailController.text, _passwordController.text, localizedTexts);
+                    _login(_emailController.text, _passwordController.text, localizedTexts);
                   },
                   child: Text(localizedTexts.enter, style: const TextStyle(fontSize: 17)),
                 ),
@@ -85,18 +86,16 @@ class _LoginState extends State<Login> {
   }
 }
 
-void _login(BuildContext context, String email, String password, LocalizedTexts localizedTexts) async {
+void _login(String email, String password, LocalizedTexts localizedTexts) async {
   try {
     final response = await Service.post('/auth/login', {'email': email, 'password': password});
     if (response['account'] != null && response['token'] != null) {
       Account account = Account.fromJson(response['account']);
       String token = response['token'];
-      // ignore: use_build_context_synchronously
-      GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
+      GlobalState globalState = GlobalState();
       globalState.updateAuth(token, account);
     }
   } catch (e) {
-    print(e);
     var message = localizedTexts.unknownError;
     if (e is http.ClientException) {
       message = e.message;

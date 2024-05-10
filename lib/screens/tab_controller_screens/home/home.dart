@@ -1,7 +1,6 @@
 import 'package:mobiletemplate/config/location-texts.config.dart';
 import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:mobiletemplate/service/service.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,7 +22,7 @@ class Home extends StatelessWidget {
           children: [
             TextButton(
               onPressed: () {
-                GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
+                GlobalState globalState = GlobalState();
                 globalState.clearAuth();
               },
               child: Text(localizedTexts.logout),
@@ -48,7 +47,6 @@ void _handleClickGetUserAccount(localizedTexts) async {
     final response = await Service.get('/account/protected');
     print(response);
   } catch (e) {
-    print(e);
     var message = localizedTexts.unknownError;
     if (e is http.ClientException) {
       message = e.message;

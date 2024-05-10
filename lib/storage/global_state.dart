@@ -8,7 +8,13 @@ class GlobalState extends ChangeNotifier {
   Account? loggedUser;
   String themeName = 'default';
 
-  GlobalState() {
+  static final GlobalState _globalStateSingleton = GlobalState._internal();
+
+  factory GlobalState() {
+    return _globalStateSingleton;
+  }
+
+  GlobalState._internal() {
     initFromLocalStorage();
   }
 

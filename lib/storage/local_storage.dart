@@ -1,5 +1,3 @@
-import 'package:mobiletemplate/routes/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:mobiletemplate/models/account_model.dart';
@@ -37,7 +35,6 @@ class LocalStorage {
 
   static Future<void> clearAuth() async {
     await _prefs.remove(_authKey);
-    navigatorKey.currentState!.pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
   }
 
   //------------------------------------ Theme

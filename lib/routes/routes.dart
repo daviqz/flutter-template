@@ -1,28 +1,17 @@
-import 'package:mobiletemplate/routes/routes_config.dart';
-import 'package:mobiletemplate/routes/tab_controller_routes.dart';
+import 'package:mobiletemplate/routes/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:mobiletemplate/screens/login/login.dart';
-import 'package:mobiletemplate/screens/register/register.dart';
 import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-final List<Map<String, dynamic>> systemRoutes = [
-  {'path': '/login', 'screen': (context) => const Login(), 'isPrivate': false, 'canAccessAfterLogin': false},
-  {'path': '/register', 'screen': (context) => const Register(), 'isPrivate': false, 'canAccessAfterLogin': false},
-  {'path': '/home', 'screen': (context) => const TabControllerRoutes(), 'isPrivate': true, 'canAccessAfterLogin': true},
-];
-
-final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class Routes extends StatelessWidget {
   const Routes({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => GlobalState(),
+    return ChangeNotifierProvider.value(
+      value: GlobalState(),
       child: const AppTheme(),
     );
   }
@@ -40,9 +29,13 @@ class _AppThemeState extends State<AppTheme> {
   @override
   Widget build(BuildContext context) {
     GlobalState globalState = Provider.of<GlobalState>(context, listen: true);
-    return MaterialApp(
+    AppRouter appRouter = AppRouter();
+
+    return MaterialApp.router(
+      routerConfig: appRouter.config(
+        reevaluateListenable: globalState,
+      ),
       title: 'Meu Aplicativo',
-      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
       localizationsDelegates: const [
@@ -65,21 +58,6 @@ class _AppThemeState extends State<AppTheme> {
         useMaterial3: true,
       ),
       themeMode: _getTheme(globalState.themeName),
-      home: const AuthenticationScreen(),
-      onGenerateRoute: (settings) {
-        final userToken = globalState.token;
-        final route = systemRoutes.firstWhere(
-          (route) => route['path'] == settings.name,
-          orElse: () => {'path': '/login', 'screen': (context) => const Login(), 'isPrivate': false, 'canAccessAfterLogin': false},
-        );
-        if ((route['isPrivate'] && userToken == null)) {
-          return MaterialPageRoute(builder: (context) => const Login());
-        }
-        if (!route['canAccessAfterLogin'] && userToken != null) {
-          return MaterialPageRoute(builder: (context) => const TabControllerRoutes());
-        }
-        return MaterialPageRoute(builder: (BuildContext context) => route['screen'](context));
-      },
     );
   }
 }

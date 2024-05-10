@@ -1,8 +1,10 @@
-import 'package:mobiletemplate/screens/home/home.dart';
-import 'package:mobiletemplate/screens/settings/settings.dart';
+import 'package:auto_route/annotations.dart';
+import 'package:mobiletemplate/screens/tab_controller_screens/home/home.dart';
+import 'package:mobiletemplate/screens/tab_controller_screens/settings/settings.dart';
 import 'package:mobiletemplate/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
 
+@RoutePage()
 class TabControllerRoutes extends StatelessWidget {
   const TabControllerRoutes({super.key});
 

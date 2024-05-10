@@ -1,6 +1,5 @@
 import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -15,7 +14,7 @@ class Settings extends StatelessWidget {
       body: Center(
         child: TextButton(
           onPressed: () {
-            GlobalState globalState = Provider.of<GlobalState>(context, listen: false);
+            GlobalState globalState = GlobalState();
             String newTheme = globalState.themeName;
             if (globalState.themeName == 'light') {
               newTheme = 'dark';

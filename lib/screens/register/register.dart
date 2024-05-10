@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:mobiletemplate/config/location-texts.config.dart';
 import 'package:mobiletemplate/enums/toast.enum.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:mobiletemplate/widgets/input_form.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobiletemplate/widgets/system_toast.dart';
 
+@RoutePage()
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -102,7 +104,7 @@ class _RegisterState extends State<Register> {
               const SizedBox(height: 50),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/login');
+                  AutoRouter.of(context).pushNamed('/login');
                 },
                 child: Text(localizedTexts.alreadyAUserLogin),
               )
@@ -127,10 +129,9 @@ class _RegisterState extends State<Register> {
       } else {
         SystemToast.show(response['message'], toastEnumFromString(response['type']));
         // ignore: use_build_context_synchronously
-        Navigator.pushReplacementNamed(context, '/login');
+        AutoRouter.of(context).pushNamed('/login');
       }
     } catch (e) {
-      print(e);
       var message = localizedTexts.unknownError;
       if (e is http.ClientException) {
         message = e.message;
