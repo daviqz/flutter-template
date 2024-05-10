@@ -21,20 +21,17 @@ class AppTheme extends StatefulWidget {
   const AppTheme({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
-  _AppThemeState createState() => _AppThemeState();
+  AppThemeState createState() => AppThemeState();
 }
 
-class _AppThemeState extends State<AppTheme> {
+class AppThemeState extends State<AppTheme> {
+  AppRouter appRouter = AppRouter();
+
   @override
   Widget build(BuildContext context) {
     GlobalState globalState = Provider.of<GlobalState>(context, listen: true);
-    AppRouter appRouter = AppRouter();
-
     return MaterialApp.router(
-      routerConfig: appRouter.config(
-        reevaluateListenable: globalState,
-      ),
+      routerConfig: appRouter.config(reevaluateListenable: globalState),
       title: 'Meu Aplicativo',
       debugShowCheckedModeBanner: false,
       locale: const Locale('en'),
