@@ -28,25 +28,40 @@ class _RegisterState extends State<Register> {
     final localizedTexts = LocalizedTexts(context);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            localizedTexts.registerYourAccount,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        title: Text(
+          localizedTexts.goBackToLogin,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: EdgeInsets.fromLTRB(
+          MediaQuery.of(context).size.width * 0.08, //left
+          MediaQuery.of(context).size.height * 0.03, //top
+          MediaQuery.of(context).size.width * 0.08, //right
+          MediaQuery.of(context).size.height * 0.08, //bottom
+        ),
         child: Center(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Icon(Icons.login, size: MediaQuery.of(context).size.height * 0.05),
+                    Text(localizedTexts.registerYourAccount, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               InputForm(
                 inputFieldValueController: _usernameController,
                 labelText: localizedTexts.username,
@@ -56,7 +71,7 @@ class _RegisterState extends State<Register> {
                 obscureText: false,
                 errorText: fieldErrors?['username'],
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               InputForm(
                 inputFieldValueController: _emailController,
                 labelText: localizedTexts.email,
@@ -66,7 +81,7 @@ class _RegisterState extends State<Register> {
                 obscureText: false,
                 errorText: fieldErrors?['email'],
               ),
-              const SizedBox(height: 35),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               InputForm(
                 inputFieldValueController: _passwordController,
                 labelText: localizedTexts.password,
@@ -76,7 +91,7 @@ class _RegisterState extends State<Register> {
                 obscureText: true,
                 errorText: fieldErrors?['password'],
               ),
-              const SizedBox(height: 25),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.025),
               InputForm(
                 inputFieldValueController: _confirmPasswordController,
                 labelText: localizedTexts.passwordConfirmation,
@@ -86,14 +101,12 @@ class _RegisterState extends State<Register> {
                 obscureText: true,
                 errorText: fieldErrors?['confirmPassword'],
               ),
-              const SizedBox(height: 70),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.07),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(200, 50),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 20.0,
-                    horizontal: 40.0,
-                  ),
+                  minimumSize: Size(MediaQuery.of(context).size.height * 0.4, MediaQuery.of(context).size.height * 0.1),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.height * 0.025, horizontal: MediaQuery.of(context).size.height * 0.04),
                 ),
                 onPressed: () {
                   _register(
@@ -102,12 +115,12 @@ class _RegisterState extends State<Register> {
                 child: Text(localizedTexts.register, style: const TextStyle(fontSize: 17)),
               ),
               const SizedBox(height: 50),
-              TextButton(
-                onPressed: () {
-                  AutoRouter.of(context).pushNamed('/login');
-                },
-                child: Text(localizedTexts.alreadyAUserLogin),
-              )
+              // TextButton(
+              //   onPressed: () {
+              //     AutoRouter.of(context).pushNamed('/login');
+              //   },
+              //   child: Text(localizedTexts.goBackToLogin),
+              // )
             ],
           ),
         ),

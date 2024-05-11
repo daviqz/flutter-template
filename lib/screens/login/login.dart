@@ -26,20 +26,22 @@ class LoginState extends State<Login> {
     final localizedTexts = LocalizedTexts(context);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(localizedTexts.login, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        ),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(25.0),
+        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.08),
         child: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Center(
+                child: Column(
+                  children: <Widget>[
+                    Icon(Icons.login, size: MediaQuery.of(context).size.height * 0.15),
+                    Text(localizedTexts.placeholder, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               InputForm(
                 inputFieldValueController: _emailController,
                 labelText: localizedTexts.email,
@@ -48,7 +50,7 @@ class LoginState extends State<Login> {
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.04),
               InputForm(
                 inputFieldValueController: _passwordController,
                 labelText: localizedTexts.password,
@@ -57,24 +59,29 @@ class LoginState extends State<Login> {
                 keyboardType: TextInputType.text,
                 obscureText: true,
               ),
-              const SizedBox(height: 30),
-              TextButton(
-                onPressed: () {
-                  AutoRouter.of(context).pushNamed('/register');
-                },
-                child: Text(localizedTexts.register),
-              ),
-              const SizedBox(height: 50),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.1),
               Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(200, 50),
-                    padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 40.0),
-                  ),
-                  onPressed: () {
-                    _login(_emailController.text, _passwordController.text, localizedTexts);
-                  },
-                  child: Text(localizedTexts.enter, style: const TextStyle(fontSize: 17)),
+                child: Column(
+                  children: <Widget>[
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(MediaQuery.of(context).size.height * 0.4, MediaQuery.of(context).size.height * 0.1),
+                        padding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.025, horizontal: MediaQuery.of(context).size.height * 0.04),
+                      ),
+                      onPressed: () {
+                        _login(_emailController.text, _passwordController.text, localizedTexts);
+                      },
+                      child: Text(localizedTexts.signIn, style: const TextStyle(fontSize: 17)),
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+                    TextButton(
+                      onPressed: () {
+                        AutoRouter.of(context).pushNamed('/register');
+                      },
+                      child: Text(localizedTexts.dontHaveAnAccountSignUp),
+                    ),
+                  ],
                 ),
               ),
             ],

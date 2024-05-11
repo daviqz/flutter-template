@@ -5,20 +5,22 @@ class LocalizedTexts {
   final BuildContext context;
 
   LocalizedTexts(this.context);
-
+  //------------------General
+  String get placeholder => 'Placeholder TODO:';
   String get password => AppLocalizations.of(context)!.password;
+  String get dontHaveAnAccountSignUp => AppLocalizations.of(context)!.dontHaveAnAccountSignUp;
   String get register => AppLocalizations.of(context)!.register;
-  String get enter => AppLocalizations.of(context)!.enter;
+  String get signIn => AppLocalizations.of(context)!.signIn;
   String get registerYourAccount => AppLocalizations.of(context)!.registerYourAccount;
   String get username => AppLocalizations.of(context)!.username;
   String get email => AppLocalizations.of(context)!.email;
-  String get login => AppLocalizations.of(context)!.login;
+  // String get login => AppLocalizations.of(context)!.login;
   String get confirmPassword => AppLocalizations.of(context)!.confirmPassword;
   String get passwordConfirmation => AppLocalizations.of(context)!.passwordConfirmation;
   String get enterYourPassword => AppLocalizations.of(context)!.enterYourPassword;
   String get enterYourEmail => AppLocalizations.of(context)!.enterYourEmail;
   String get enterYourUsername => AppLocalizations.of(context)!.enterYourUsername;
-  String get alreadyAUserLogin => AppLocalizations.of(context)!.alreadyAUserLogin;
+  String get goBackToLogin => AppLocalizations.of(context)!.goBackToLogin;
   String get logout => AppLocalizations.of(context)!.logout;
   String get home => AppLocalizations.of(context)!.home;
   String get explore => AppLocalizations.of(context)!.explore;
