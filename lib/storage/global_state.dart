@@ -7,6 +7,7 @@ class GlobalState extends ChangeNotifier {
   String? token;
   Account? loggedUser;
   String themeName = 'default';
+  String appLanguageName = 'pt';
 
   static final GlobalState _globalStateSingleton = GlobalState._internal();
 
@@ -19,17 +20,21 @@ class GlobalState extends ChangeNotifier {
   }
 
   void initFromLocalStorage() async {
-    final authData = await LocalStorage.getAuth();
-    final themeName = await LocalStorage.getThemeName();
-    if (authData != null) {
-      final auth = json.decode(authData);
+    final authDataLocal = await LocalStorage.getAuth();
+    final themeNameLocal = await LocalStorage.getThemeName();
+    final appLanguageNameLocal = await LocalStorage.getAppLanguageName();
+    if (authDataLocal != null) {
+      final auth = json.decode(authDataLocal);
       final token = auth['token'];
       final userData = auth['loggedUser'];
       final loggedUser = Account.fromJson(userData);
       updateAuth(token, loggedUser);
     }
-    if (themeName != null) {
-      updateTheme(themeName);
+    if (themeNameLocal != null) {
+      updateTheme(themeNameLocal);
+    }
+    if (appLanguageNameLocal != null) {
+      updateAppLanguage(appLanguageNameLocal);
     }
   }
 
@@ -61,6 +66,13 @@ class GlobalState extends ChangeNotifier {
   void updateTheme(String newThemeName) async {
     await LocalStorage.setThemeName(newThemeName);
     themeName = newThemeName;
+    notifyListeners();
+  }
+
+  //------------------------------------ Language
+  void updateAppLanguage(String newAppLanguage) async {
+    await LocalStorage.setAppLanguageName(newAppLanguage);
+    appLanguageName = newAppLanguage;
     notifyListeners();
   }
 }

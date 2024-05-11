@@ -5,6 +5,7 @@ import 'package:mobiletemplate/models/account_model.dart';
 class LocalStorage {
   static const String _authKey = 'AUTH_KEY';
   static const String _themeKey = 'THEME_KEY';
+  static const String _appLanguageKey = 'APP_LANGUAGE_KEY';
 
   static late SharedPreferences _prefs;
 
@@ -44,5 +45,14 @@ class LocalStorage {
 
   static Future<String?> getThemeName() async {
     return _prefs.getString(_themeKey);
+  }
+
+  //------------------------------------ Language
+  static Future<void> setAppLanguageName(String appLanguageName) async {
+    await _prefs.setString(_appLanguageKey, appLanguageName);
+  }
+
+  static Future<String?> getAppLanguageName() async {
+    return _prefs.getString(_appLanguageKey);
   }
 }

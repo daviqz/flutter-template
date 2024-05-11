@@ -34,7 +34,7 @@ class AppThemeState extends State<AppTheme> {
       routerConfig: appRouter.config(reevaluateListenable: globalState),
       title: 'Meu Aplicativo',
       debugShowCheckedModeBanner: false,
-      locale: const Locale('en'),
+      locale: Locale(globalState.appLanguageName),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

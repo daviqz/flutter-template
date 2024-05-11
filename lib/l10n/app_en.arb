@@ -12,11 +12,12 @@
 	"passwordConfirmation":"Password confirmation",
 	"enterYourPassword":"Enter your password",
 	"alreadyAUserLogin":"Already a user? Login",
-	"logout":"Logout",
 	"explore":"Explore",
-	"favorites":"Favoritos",
+	"home":"Home",
+	"favorites":"Favorites",
 	"updates":"Updates",
 	"settings":"Settings",
+	"logout":"Logout",
 	"xxxxxErrorsxxxxx":"",
 	"unknownError":"Unknown error"
 }

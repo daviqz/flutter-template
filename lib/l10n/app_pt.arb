@@ -12,11 +12,12 @@
     "passwordConfirmation":"Confirmação de senha",
     "enterYourPassword":"Digite a sua senha",
     "alreadyAUserLogin":"Já é um usuário? Entrar",
-    "logout":"Deslogar",
+    "home":"Home",
     "explore":"Explorar",
     "favorites":"Favoritos",
     "updates":"Atualizações",
     "settings":"Configurações",
+    "logout":"Deslogar",
     "xxxxxErrorsxxxxx":"",
     "unknownError":"Erro desconhecido"
 }

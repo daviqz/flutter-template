@@ -3,6 +3,7 @@ import 'package:mobiletemplate/screens/tab_controller_screens/home/home.dart';
 import 'package:mobiletemplate/screens/tab_controller_screens/settings/settings.dart';
 import 'package:mobiletemplate/utils/colors_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:mobiletemplate/config/location-texts.config.dart';
 
 @RoutePage()
 class TabControllerRoutes extends StatelessWidget {
@@ -10,6 +11,8 @@ class TabControllerRoutes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizedTexts = LocalizedTexts(context);
+
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -24,11 +27,11 @@ class TabControllerRoutes extends StatelessWidget {
         ),
         bottomNavigationBar: TabBar(
           tabs: [
-            _buildTab(Icons.home, "Home"),
-            _buildTab(Icons.travel_explore, "Explore"),
-            _buildTab(Icons.favorite_border, "Favorites"),
-            _buildTab(Icons.update, "Updates"),
-            _buildTab(Icons.settings, "Settings"),
+            _buildTab(Icons.home, localizedTexts.home),
+            _buildTab(Icons.travel_explore, localizedTexts.explore),
+            _buildTab(Icons.favorite_border, localizedTexts.favorites),
+            _buildTab(Icons.update, localizedTexts.updates),
+            _buildTab(Icons.settings, localizedTexts.settings),
           ],
           unselectedLabelColor: ColorsUtils.grey,
           labelColor: ColorsUtils.lightBlue,

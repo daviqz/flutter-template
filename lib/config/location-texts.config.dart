@@ -20,6 +20,7 @@ class LocalizedTexts {
   String get enterYourUsername => AppLocalizations.of(context)!.enterYourUsername;
   String get alreadyAUserLogin => AppLocalizations.of(context)!.alreadyAUserLogin;
   String get logout => AppLocalizations.of(context)!.logout;
+  String get home => AppLocalizations.of(context)!.home;
   String get explore => AppLocalizations.of(context)!.explore;
   String get favorites => AppLocalizations.of(context)!.favorites;
   String get updates => AppLocalizations.of(context)!.updates;
