@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobiletemplate/routes/routes.dart';
+import 'package:mobiletemplate/app.dart';
 import 'package:mobiletemplate/storage/local_storage.dart';
 
 void main() async {
@@ -10,10 +10,10 @@ void main() async {
 class AppInitializer {
   static Future<void> initialize() async {
     await LocalStorage.init();
-    runApp(const Routes());
+    runApp(const App());
   }
 
   static Widget getAppRootWidget() {
-    return const Routes();
+    return const App();
   }
 }
