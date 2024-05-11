@@ -47,10 +47,10 @@ class AppThemeState extends State<AppTheme> {
       ],
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: const Color.fromARGB(167, 214, 214, 214),
+        colorSchemeSeed: const Color.fromARGB(255, 146, 141, 141),
       ),
       darkTheme: ThemeData(
-        colorSchemeSeed: const Color.fromRGBO(86, 80, 14, 171),
+        colorSchemeSeed: const Color.fromARGB(255, 21, 23, 136),
         brightness: Brightness.dark,
         useMaterial3: true,
       ),

@@ -10,11 +10,11 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localizedTexts = LocalizedTexts(context);
+    String appTitle = localizedTexts.home;
 
-    const String appTitle = 'Flutter HOME';
     return Scaffold(
       appBar: AppBar(
-        title: const Text(appTitle),
+        title: Text(appTitle),
       ),
       body: Center(
         child: Column(
@@ -31,8 +31,8 @@ class Home extends StatelessWidget {
               onPressed: () {
                 _handleClickGetUserAccount(localizedTexts);
               },
-              child: const Text(
-                'Buscar perfil (rota autenticada)',
+              child: Text(
+                localizedTexts.testAuthEndpoint,
               ),
             ),
           ],

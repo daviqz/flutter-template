@@ -27,7 +27,12 @@ class LoginState extends State<Login> {
 
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.height * 0.08),
+        padding: EdgeInsets.fromLTRB(
+          MediaQuery.of(context).size.width * 0.06, //left
+          MediaQuery.of(context).size.height * 0.02, //top
+          MediaQuery.of(context).size.width * 0.06, //right
+          MediaQuery.of(context).size.height * 0.06, //bottom
+        ),
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,6 +71,7 @@ class LoginState extends State<Login> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(MediaQuery.of(context).size.height * 0.4, MediaQuery.of(context).size.height * 0.1),
+                        elevation: 5,
                         padding: EdgeInsets.symmetric(
                             vertical: MediaQuery.of(context).size.height * 0.025, horizontal: MediaQuery.of(context).size.height * 0.04),
                       ),

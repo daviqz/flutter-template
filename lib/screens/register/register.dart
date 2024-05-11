@@ -43,10 +43,10 @@ class _RegisterState extends State<Register> {
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(
-          MediaQuery.of(context).size.width * 0.08, //left
-          MediaQuery.of(context).size.height * 0.03, //top
-          MediaQuery.of(context).size.width * 0.08, //right
-          MediaQuery.of(context).size.height * 0.08, //bottom
+          MediaQuery.of(context).size.width * 0.06, //left
+          MediaQuery.of(context).size.height * 0.02, //top
+          MediaQuery.of(context).size.width * 0.06, //right
+          MediaQuery.of(context).size.height * 0.06, //bottom
         ),
         child: Center(
           child: Column(
@@ -105,6 +105,7 @@ class _RegisterState extends State<Register> {
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(MediaQuery.of(context).size.height * 0.4, MediaQuery.of(context).size.height * 0.1),
+                  elevation: 5,
                   padding: EdgeInsets.symmetric(
                       vertical: MediaQuery.of(context).size.height * 0.025, horizontal: MediaQuery.of(context).size.height * 0.04),
                 ),

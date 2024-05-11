@@ -1,3 +1,4 @@
+import 'package:mobiletemplate/config/location-texts.config.dart';
 import 'package:mobiletemplate/storage/global_state.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,10 +8,12 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const String appTitle = 'Flutter Settings';
+    final localizedTexts = LocalizedTexts(context);
+    String appTitle = localizedTexts.settings;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text(appTitle),
+        title: Text(appTitle),
       ),
       body: Center(
         child: Column(
@@ -28,7 +31,7 @@ class Settings extends StatelessWidget {
                 globalState.updateTheme(newTheme);
               },
               child: const Text(
-                'Trocar light/dark',
+                'Light/dark',
               ),
             ),
             const SelectLanguage()
